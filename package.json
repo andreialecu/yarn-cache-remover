@@ -1,12 +1,15 @@
 {
   "name": "yarn-cache-remover",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "scripts": {
     "build": "tsc",
     "console": "yarn build && node lib/index.js",
     "prepack": "yarn build"
   },
   "bin": "./lib/index.js",
+  "repository": {
+    "url": "https://github.com/andreialecu/yarn-cache-remover"
+  },
   "files": [
     "lib/**/*.js"
   ],
