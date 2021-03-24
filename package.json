@@ -1,6 +1,6 @@
 {
   "name": "yarn-cache-remover",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "scripts": {
     "build": "tsc",
     "console": "yarn build && node lib/index.js",
