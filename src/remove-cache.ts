@@ -19,23 +19,23 @@ interface GitBlob {
 
 export class RemoveCommand extends Command {
   repoUrl = Option.String();
-  tempDir = Option.String("--tempDir", { required: true });
+  outDir = Option.String("--outDir", { required: true });
 
   get bfgPath() {
-    return path.join(this.tempDir, "bfg.jar");
+    return path.join(this.outDir, "bfg.jar");
   }
 
   get repoPath() {
-    return path.join(this.tempDir, REPO_DIR);
+    return path.join(this.outDir, REPO_DIR);
   }
 
   get blobIdsPath() {
-    return path.join(this.tempDir, "blobids.txt");
+    return path.join(this.outDir, "blobids.txt");
   }
 
   async execute() {
-    if (!existsSync(this.tempDir)) {
-      mkdirSync(this.tempDir);
+    if (!existsSync(this.outDir)) {
+      mkdirSync(this.outDir);
     }
 
     if (!existsSync(this.bfgPath)) {
@@ -119,7 +119,7 @@ export class RemoveCommand extends Command {
   private async updateRepo() {
     return new Promise((resolve, reject) => {
       const proc = spawn("git", ["remote", "update"], {
-        cwd: this.tempDir,
+        cwd: this.outDir,
         stdio: "inherit",
         env: process.env,
       });
@@ -151,7 +151,7 @@ export class RemoveCommand extends Command {
   private async cloneRepo() {
     return new Promise((resolve, reject) => {
       const proc = spawn("git", ["clone", "--mirror", this.repoUrl, REPO_DIR], {
-        cwd: this.tempDir,
+        cwd: this.outDir,
         stdio: "inherit",
         env: process.env,
       });
