@@ -66,7 +66,7 @@ export class RemoveCommand extends Command {
 
     console.log(`Repository size before: ${await this.getRepoSize()}`);
     console.log(`Pruning repo... please wait, this may take a while`);
-    //await this.pruneRepo();
+    await this.pruneRepo();
     console.log(`Repository size after: ${await this.getRepoSize()}`);
     console.log();
     console.log(
