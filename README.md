@@ -34,7 +34,7 @@ Removing blobs, do not intrerrupt this process.
 Done removing blobs.
 Repository size before: 1.24 GiB
 Pruning repo... please wait, this may take a while
-Repository size after: 1.24 GiB
+Repository size after: 123.92 MiB
 
 Go to /tmp/berry-no-cache/repo-mirror and inspect the changes then push it, if desired. Remember that it's a mirror, so the files will not be visible. Git commands should work though.
 ```
