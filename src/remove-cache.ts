@@ -22,15 +22,15 @@ export class RemoveCommand extends Command {
   outDir = Option.String("--outDir", { required: true });
 
   get bfgPath() {
-    return path.join(this.outDir, "bfg.jar");
+    return path.resolve(path.join(this.outDir, "bfg.jar"));
   }
 
   get repoPath() {
-    return path.join(this.outDir, REPO_DIR);
+    return path.resolve(path.join(this.outDir, REPO_DIR));
   }
 
   get blobIdsPath() {
-    return path.join(this.outDir, "blobids.txt");
+    return path.resolve(path.join(this.outDir, "blobids.txt"));
   }
 
   async execute() {
