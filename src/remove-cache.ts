@@ -9,6 +9,7 @@ import got from "got";
 const execAsync = util.promisify(exec);
 
 const REPO_DIR = "repo-mirror";
+const DEFAULT_CACHE_PATH = ".yarn/cache";
 const BFG_URL =
   "https://repo1.maven.org/maven2/com/madgag/bfg/1.14.0/bfg-1.14.0.jar";
 
@@ -19,7 +20,14 @@ interface GitBlob {
 
 export class RemoveCommand extends Command {
   repoUrl = Option.String();
-  outDir = Option.String("--outDir", { required: true });
+  outDir = Option.String("--outDir", {
+    required: true,
+    description: "Directory to store the pruned git repository in",
+  });
+  cachePath = Option.Array("--cachePath", {
+    description:
+      "Cache paths to remove. Defaults to .yarn/cache. Multiple paths are allowed.",
+  });
 
   get bfgPath() {
     return path.resolve(path.join(this.outDir, "bfg.jar"));
@@ -134,7 +142,11 @@ export class RemoveCommand extends Command {
 
   private async getCacheBlobs() {
     const res = await execAsync(
-      "git rev-list --all --objects -- .yarn/cache | git cat-file --batch-check='%(objectname) %(objecttype) %(rest)'",
+      `git rev-list --all --objects -- ${(
+        this.cachePath || [DEFAULT_CACHE_PATH]
+      ).join(
+        " "
+      )} | git cat-file --batch-check='%(objectname) %(objecttype) %(rest)'`,
       { cwd: this.repoPath, maxBuffer: 1024 * 1000 * 4 }
     );
 
