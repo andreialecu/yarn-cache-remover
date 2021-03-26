@@ -10,10 +10,15 @@ It works by first cloning a repo with the `--mirror` flag into a temp path. It w
 
 ### Usage:
 ```
-yarn dlx yarn-cache-remover git@github.com:yarnpkg/berry.git --outDir /tmp/berry-no-cache
+yarn dlx yarn-cache-remover git@github.com:myorg/myrepo.git --outDir /tmp/berry-no-cache
 ```
 
 The pruned repository will be stored in `<outDir>/repo-mirror`.
+
+You can also specify multiple cache paths to prune:
+```
+yarn dlx yarn-cache-remover git@github.com:myorg/myrepo.git --cachePath .yarn/cache -cachePath other/someproj/.yarn/cache --outDir /tmp/berry-no-cache
+```
 
 ### Example output:
 ```
